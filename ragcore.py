@@ -7,7 +7,6 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-# ------------------ Setup ------------------
 load_dotenv()
 
 if os.getenv("GROQ_API_KEY") is None:
@@ -20,7 +19,7 @@ llm = ChatGroq(
 
 embed_model = SentenceTransformer("all-MiniLM-L6-v2")
 
-# ------------------ Core Functions ------------------
+
 
 def extract_text(file):
     doc = fitz.open(stream=file.read(), filetype="pdf")
@@ -69,8 +68,6 @@ def generate_answer(context, question):
     return llm.invoke(prompt).content
 
 
-# ------------------ Summarization ------------------
-
 def summarize_chunks(chunks):
     partial_summaries = []
 
@@ -91,7 +88,7 @@ def summarize_chunks(chunks):
     return llm.invoke(final_prompt).content
 
 
-# ------------------ Pipeline ------------------
+#pipeline
 
 def process_pdf(pdf_path):
     text = extract_text(pdf_path)

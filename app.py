@@ -5,14 +5,13 @@ st.set_page_config(page_title="PDF AI Assistant", layout="wide")
 
 st.title("📄 AI PDF Summarizer & Q&A")
 
-# ------------------ Upload ------------------
+
 uploaded_file = st.file_uploader("Upload your PDF", type=["pdf"])
 
-# ------------------ Session State ------------------
 if "processed" not in st.session_state:
     st.session_state.processed = False
 
-# ------------------ Process PDF ------------------
+
 if uploaded_file and not st.session_state.processed:
     with st.spinner("Processing PDF..."):
         text, chunks, index = process_pdf(uploaded_file)
@@ -24,14 +23,13 @@ if uploaded_file and not st.session_state.processed:
 
     st.success("✅ PDF processed successfully!")
 
-# ------------------ Modes ------------------
+
 if st.session_state.processed:
 
     st.divider()
 
     mode = st.radio("Choose Mode", ["📄 Summarize", "❓ Ask Questions"])
 
-    # -------- Summarization --------
     if mode == "📄 Summarize":
         if st.button("Generate Summary"):
             with st.spinner("Summarizing..."):
@@ -40,7 +38,6 @@ if st.session_state.processed:
                 st.subheader("📌 Summary")
                 st.write(summary)
 
-    # -------- Q&A --------
     elif mode == "❓ Ask Questions":
         question = st.text_input("Ask a question about the document:")
 
